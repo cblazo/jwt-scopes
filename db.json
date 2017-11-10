@@ -1,0 +1,28 @@
+{
+  "ids": {
+    "User": 1,
+    "AccessToken": 1,
+    "ACL": 1,
+    "RoleMapping": 1,
+    "Role": 1,
+    "Product": 4,
+    "Sales": 4
+  },
+  "models": {
+    "User": {},
+    "AccessToken": {},
+    "ACL": {},
+    "RoleMapping": {},
+    "Role": {},
+    "Product": {
+      "1": "{\"name\":\"Coffee beans (1 kg)\",\"price\":6.5,\"stock\":105,\"id\":1}",
+      "2": "{\"name\":\"Sugar (1 kg)\",\"price\":1.5,\"stock\":892,\"id\":2}",
+      "3": "{\"name\":\"Water (2.5 L)\",\"price\":1.05,\"stock\":15,\"id\":3}"
+    },
+    "Sales": {
+      "1": "{\"productId\":1,\"amount\":6,\"date\":\"2017-08-10T22:00:00.000Z\",\"id\":1}",
+      "2": "{\"productId\":2,\"amount\":43,\"date\":\"2017-07-10T22:00:00.000Z\",\"id\":2}",
+      "3": "{\"productId\":3,\"amount\":1,\"date\":\"2017-01-10T23:00:00.000Z\",\"id\":3}"
+    }
+  }
+}

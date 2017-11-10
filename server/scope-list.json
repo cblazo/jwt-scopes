@@ -1,0 +1,14 @@
+{
+  "read:products": {
+    "endpoints": [
+      "/api/products/",
+      "/explorer/#/products/"
+    ]
+  },
+  "read:sales": {
+    "endpoints": [
+      "/api/sales/",
+      "/explorer/#/sales/"
+    ]
+  }
+}
