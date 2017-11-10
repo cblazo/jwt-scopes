@@ -5,7 +5,7 @@
     "ACL": 1,
     "RoleMapping": 1,
     "Role": 1,
-    "Product": 4,
+    "Product": 6,
     "Sales": 4
   },
   "models": {
@@ -17,7 +17,9 @@
     "Product": {
       "1": "{\"name\":\"Coffee beans (1 kg)\",\"price\":6.5,\"stock\":105,\"id\":1}",
       "2": "{\"name\":\"Sugar (1 kg)\",\"price\":1.5,\"stock\":892,\"id\":2}",
-      "3": "{\"name\":\"Water (2.5 L)\",\"price\":1.05,\"stock\":15,\"id\":3}"
+      "3": "{\"name\":\"Water (2.5 L)\",\"price\":1.05,\"stock\":15,\"id\":3}",
+      "4": "{\"stock\":0,\"id\":4}",
+      "5": "{\"name\":\"Lemongrass Tea (12 bags)\",\"price\":2.45,\"stock\":50,\"id\":5}"
     },
     "Sales": {
       "1": "{\"productId\":1,\"amount\":6,\"date\":\"2017-08-10T22:00:00.000Z\",\"id\":1}",
