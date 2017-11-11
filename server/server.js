@@ -8,7 +8,6 @@ var jwt = require('express-jwt');
 var jwks = require('jwks-rsa');
 var unless = require('express-unless');
 var validateScope = require('validate-scope');
-var jwtDecode = require('jwt-decode');
 
 // All allowed scopes. Predefined.
 // Not used
@@ -47,15 +46,15 @@ app.use(requireAuth.unless({
 //////////////////////////
 // Scope check middleware
 //////////////////////////
-// NB Routing rules for subfolders overwrite the parent folder scope.
-
 // TODO Differentiate scopes between model attributes (e.g. customerApp can't see Product.stock)
 // TODO Move the hardcoded paths and scopes to a json file or to common/product.js for example. (app.get('/api/*', retrieve_and_check_scopes(), func))
 // TODO Make scalable in such a way that you only have to define new scopes only in 1 place instead of both Auth0 and server.js
+// TODO Routing prioritization does not work, a user must have all scopes that cover an endpoint. So using wildcards is not an option.
 
 // When there is a GET request at /api/products or any subpage, validate that the JWT scope contains 'read:products'
 app.get('/api/products', check_scopes(['read:products']), function(req,res,next){ return next(); });
-app.get('/api/products*', check_scopes(['read:products']), function(req,res,next){ return next(); });
+app.get('/api/products/isInStock', check_scopes(['read:products']), function(req,res,next){ return next(); });
+app.get('/api/products*', check_scopes(['notinscope:products']), function(req,res,next){ return next(); });
 // When there is a HEAD request at /api/products/{id}, validate that the JWT scope contains 'read:products'
 app.head('/api/products*', check_scopes(['read:products']), function(req,res,next){ return next(); });
 // When there is a GET request at /api/products/count, validate that the JWT scope contains 'count:products'
@@ -80,7 +79,7 @@ app.put('/api/sales*', check_scopes(['update:sales', 'create:sales']), function(
 app.patch('/api/sales', check_scopes(['update:sales', 'create:sales']), function(req,res,next){ return next(); });
 app.patch('/api/sales*', check_scopes(['update:sales', 'create:sales']), function(req,res,next){ return next(); });
 app.post('/api/sales', check_scopes(['create:sales']), function(req,res,next){ return next(); });
-app.post('/api/sales*', check_scopes(['update:sales', 'create:sales']), function(req,res,next){ return next(); });
+app.post('/api/sales*', check_scopes('update:sales OR create:sales'), function(req,res,next){ return next(); });
 app.delete('/api/sales*', check_scopes(['delete:sales']), function(req,res,next){ return next(); });
 
 // Catch error when an invalid token is supplied.
@@ -122,6 +121,7 @@ function check_scopes(requiredScopes) {
       }
    }
 }
+
 
 ///////////////////////////////////////////////////////////////////////
 
