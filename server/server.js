@@ -3,7 +3,7 @@
 var loopback = require('loopback');
 var boot = require('loopback-boot');
 
-// Required packages
+// Required packages for JWT/Scope check middleware
 var jwt = require('express-jwt');
 var jwks = require('jwks-rsa');
 var unless = require('express-unless');
@@ -38,18 +38,15 @@ app.use(requireAuth);
 //////////////////////////
 // Scope check middleware
 //////////////////////////
-// TODO Differentiate scopes between model attributes (e.g. customerApp can't see Product.stock)
-// TODO Make scalable in such a way that you only have to define new scopes only in 1 place instead of both Auth0 and scope-list.json
-// TODO In ValidateRequest, the current split-path splits by "/" and would not work with e.g. /api/products/stock/isInStock
 
-//Upon these requests, validate the access token scope
+//Upon these HTTP requests, validate the supplied access token scope
 app.get('/api*', validateRequest(), function(req,res,next){ return next(); })
 app.post('/api*', validateRequest(), function(req,res,next){ return next(); })
 app.put('/api*', validateRequest(), function(req,res,next){ return next(); })
 app.patch('/api*', validateRequest(), function(req,res,next){ return next(); })
 app.head('/api*', validateRequest(), function(req,res,next){ return next(); })
 app.delete('/api*', validateRequest(), function(req,res,next){ return next(); })
-//All other kinds of requests are unauthorized
+//NB All other kinds of requests are unauthorized
 
 // Catch error when an invalid token is supplied.
 app.use(function (err, req, res, next) {
@@ -64,7 +61,8 @@ app.use(function (err, req, res, next) {
   }
 });
 
-/** Retrieve the required scope and compare to the token scope
+/** Retrieve the required scope given the requested PATH
+*   and compare to the access token scope
 */
 function validateRequest() {
   return function(req, res, next) {
@@ -75,7 +73,7 @@ function validateRequest() {
     var model = splitPath[2];
     var path = splitPath[3];
 
-    //retrieve the right required scope
+    //retrieve the right required scope from scope-list.json
     //Lookup the HTTP request method
     var methods = scopeList.methods;
     for(var i in methods){
@@ -114,16 +112,21 @@ function checkScopes(requiredScopes, req, res, next) {
   console.log("Required scope: " + requiredScopes + "\nTokens'  scope: "+ scope);
   if (scope == undefined) {
     if(requiredScopes == null){
+      //Allow access
       console.log("Application has a valid token with sufficient scope for this request (requires no scopes).");
       return next();
     } else {
+      //Do not allow access
       console.log("Application has a valid token, but insufficient scope for this request (no scopes).");
       return res.status(401).send('Application has a valid token, but insufficient scope for this request (no scopes).');
     }
   } else if (validate(scope)) {
+    // Validate if the access token scopes contain the required scopes
+    //Allow access
     console.log("Application has a valid token with sufficient scope for this request.");
     return next();
   } else {
+    //Do not allow access
     console.log("Application has a valid token, but insufficient scope for this request (does not contain required scope).");
     return res.status(401).send('Application has a valid token, but insufficient scope for this request (does not contain required scope).');
   }

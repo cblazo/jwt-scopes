@@ -1,8 +1,10 @@
 'use strict';
 
 module.exports = function(Product) {
-
+  /* Simple remote method that checks if a given product is in stock
+  */
   Product.isInStock = function(productId, req, res, cb) {
+    //Validate the input
     if(productId === undefined){
       var error = new Error("No product ID supplied.");
       error.status = "Bad Request";
@@ -11,6 +13,7 @@ module.exports = function(Product) {
       cb(error);
     }
     Product.findById( productId, function (err, instance) {
+      // If product is not found
       if(instance == null){
         var error = new Error("No product with that ID.");
         error.status = "No Content";

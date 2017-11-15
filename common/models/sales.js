@@ -1,7 +1,8 @@
 'use strict';
 
 module.exports = function(Sales) {
-
+  // Simple function that creates a sales object and updates
+  // the corresponding product object
   Sales.transaction = function(productId, amount, req, res, cb) {
     //Validate the input
     if(productId === undefined || amount === undefined){
