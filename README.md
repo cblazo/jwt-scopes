@@ -12,7 +12,7 @@ Not connected to a database, but writes/reads file db.json
 - get an access token (see the next section)
 - make a HTTP request to http://localhost:3000/api/...
 
-There are 9 scopes and 3 registered applications.
+For demonstration purposes, there are 9 scopes and 3 registered applications.
 They have been assigned the following scopes in Auth0:
 - read:products (CustomerApp, EmployeeApp, ManagerApp)
 - create:products (ManagerApp)
