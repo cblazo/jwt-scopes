@@ -6,7 +6,7 @@
     "RoleMapping": 1,
     "Role": 1,
     "Product": 6,
-    "Sales": 26
+    "Sales": 29
   },
   "models": {
     "User": {},
@@ -16,7 +16,7 @@
     "Role": {},
     "Product": {
       "1": "{\"name\":\"Coffee beans (1 kg)\",\"price\":6.5,\"stock\":105,\"id\":1}",
-      "2": "{\"name\":\"Sugar (1 kg)\",\"price\":1.5,\"stock\":389,\"id\":2}",
+      "2": "{\"name\":\"Sugar (1 kg)\",\"price\":1.5,\"stock\":386,\"id\":2}",
       "3": "{\"name\":\"Water (2.5 L)\",\"price\":1.05,\"stock\":15,\"id\":3}",
       "4": "{\"stock\":0,\"id\":4}",
       "5": "{\"name\":\"Lemongrass Tea (12 bags)\",\"price\":2.45,\"stock\":50,\"id\":5}"
@@ -46,7 +46,10 @@
       "22": "{\"productId\":2,\"amount\":2,\"date\":\"2017-11-11T20:06:32.532Z\",\"id\":22}",
       "23": "{\"productId\":2,\"amount\":2,\"date\":\"2017-11-11T20:16:49.322Z\",\"id\":23}",
       "24": "{\"productId\":2,\"amount\":2,\"date\":\"2017-11-11T20:17:00.638Z\",\"id\":24}",
-      "25": "{\"productId\":2,\"amount\":2,\"date\":\"2017-11-11T20:20:52.251Z\",\"id\":25}"
+      "25": "{\"productId\":2,\"amount\":2,\"date\":\"2017-11-11T20:20:52.251Z\",\"id\":25}",
+      "26": "{\"productId\":2,\"amount\":1,\"date\":\"2017-11-15T18:00:52.787Z\",\"id\":26}",
+      "27": "{\"productId\":2,\"amount\":1,\"date\":\"2017-11-15T18:02:08.222Z\",\"id\":27}",
+      "28": "{\"productId\":2,\"amount\":1,\"date\":\"2017-11-15T18:16:24.794Z\",\"id\":28}"
     }
   }
 }

@@ -1,14 +1,89 @@
 {
-  "read:products": {
-    "endpoints": [
-      "/api/products/",
-      "/explorer/#/products/"
-    ]
-  },
-  "read:sales": {
-    "endpoints": [
-      "/api/sales/",
-      "/explorer/#/sales/"
-    ]
-  }
+  "_comment": "In this JSON file, all the scopes for accessing the endpoints are defined in a tree structure: METHOD.MODEL.SCOPES.PATH",
+  "methods": [
+    {"method": "GET",
+      "models": [
+        { "model": "products",
+          "defaultScopes" : "read:products",
+          "scopes" : [
+            {"path" : "isInStock",    "scope" : "read:products"},
+            {"path" : "",             "scope" : "read:products"}
+          ]
+        },
+        { "model": "sales",
+          "defaultScopes" : "read:sales",
+          "scopes" : [
+            {"path" : "count",        "scope" : "count:sales"},
+            {"path" : "",              "scope" : "read:sales"}
+          ]
+        }
+      ]
+    },
+    {"method": "POST",
+      "models": [
+        { "model": "products",
+          "defaultScope" : "create:products",
+          "scopes" : [
+            {"path" : "",              "scope" : "create:products"},
+            {"path" : "*",             "scope" : "create:products OR update:products"}
+          ]
+        },
+        { "model": "sales",
+          "default" : "create:sales",
+          "scopes" : [
+            {"path" : "transaction", "scope" : "create:sales AND update:products"},
+            {"path" : "*",             "scope" : "create:sales OR update:sales"}
+          ]
+        }
+      ]
+    },
+    {"method": "PUT",
+      "models": [
+        { "model": "products",
+          "defaultScope" : "create:products AND update:products",
+          "scopes" : []
+        },
+        { "model": "sales",
+          "defaultScope" : "create:sales AND update:sales",
+          "scopes" : []
+        }
+      ]
+    },
+    {"method": "PATCH",
+      "models": [
+        { "model": "products",
+          "defaultScope" : "create:products AND update:products",
+          "scopes" : []
+        },
+        { "model": "sales",
+          "defaultScope" : "create:sales AND update:sales",
+          "scopes" : []
+        }
+      ]
+    },
+    {"method": "HEAD",
+      "models": [
+        { "model": "products",
+          "defaultScope" : "read:products",
+          "scopes" : []
+        },
+        { "model": "sales",
+          "defaultScope" : "read:sales",
+          "scopes" : []
+        }
+      ]
+    },
+    {"method": "DELETE",
+      "models": [
+        { "model": "products",
+          "defaultScope" : "delete:products",
+          "scopes" : []
+        },
+        { "model": "sales",
+          "defaultScope" : "delete:sales",
+          "scopes" : []
+        }
+      ]
+    }
+  ]
 }

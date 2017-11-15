@@ -16,7 +16,7 @@
     "stock": {
         "type": "number",
         "default": 0
-      }    
+      }
   },
   "validations": [],
   "relations": {},
